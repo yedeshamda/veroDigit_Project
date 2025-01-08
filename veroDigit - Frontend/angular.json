@@ -1,0 +1,141 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "veroDigit": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "allowedCommonJsDependencies": [
+              "canvg"
+            ],
+            "outputPath": "dist/biz-match",
+            "polyfills": [
+              "zone.js",
+              "src/polyfills.ts"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/assets/css/style.min.css",
+              "node_modules/flag-icon-css/css/flag-icons.min.css"
+            ],
+            "scripts": [
+              "./node_modules/zone.js/dist/zone.js",
+              "src/assets/libs/jquery/dist/jquery.min.js",
+              "src/assets/libs/simplebar/dist/simplebar.min.js",
+              "src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/js/app.min.js",
+              "src/assets/js/app.init.js",
+              "src/assets/js/app-style-switcher.js",
+              "src/assets/js/sidebarmenu.js",
+              "src/assets/js/custom.js",
+              "src/assets/libs/apexcharts/dist/apexcharts.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "node_modules/jquery/dist/jquery.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "veroDigit:build:production"
+            },
+            "development": {
+              "browserTarget": "veroDigit:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "veroDigit:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/assets/css/style.min.css",
+              "node_modules/flag-icon-css/css/flag-icons.min.css"
+            ],
+            "scripts": [
+              "src/assets/libs/jquery/dist/jquery.min.js",
+              "src/assets/js/admin-settings.js",
+              "src/scripts.js",
+              "src/assets/libs/simplebar/dist/simplebar.min.js",
+              "src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/js/app.min.js",
+              "src/assets/js/app.init.js",
+              "src/assets/js/app-style-switcher.js",
+              "src/assets/js/sidebarmenu.js",
+              "src/assets/js/custom.js",
+              "src/assets/libs/apexcharts/dist/apexcharts.min.js",
+              "node_modules/zone.js/dist/zone.js"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "0af4b551-2456-4012-a2dc-e83f865f56c0"
+  }
+}

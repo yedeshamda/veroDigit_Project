@@ -1,0 +1,57 @@
+<!-- Sidebar Start -->
+<aside class="left-sidebar">
+  <!-- Sidebar scroll-->
+  <div>
+    <div class="brand-logo d-flex align-items-center justify-content-between">
+      <a routerLink="/home" class="text-nowrap logo-img">
+        <img src="assets/images/logo/logo.png" class="dark-logo" width="180" alt="" />
+      </a>
+      <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+        <i class="ti ti-x fs-8 text-muted"></i>
+      </div>
+    </div>
+    <!-- Sidebar navigation-->
+    <nav class="sidebar-nav scroll-sidebar" data-simplebar>
+      <ul id="sidebarnav">
+        <!-- ============================= -->
+        <!-- Home -->
+        <!-- ============================= -->
+        <li class="nav-small-cap">
+          <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+          <span class="hide-menu">Home</span>
+        </li>
+
+        <li class="sidebar-item">
+          <a class="sidebar-link"  [routerLink]="['/']"   aria-expanded="false">
+                  <span>
+                    <i class="ti ti-home"></i>
+                  </span>
+            <span class="hide-menu">Home</span>
+          </a>
+        </li>
+        <li class="nav-small-cap">
+          <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+          <span class="hide-menu">Apps</span>
+        </li>
+
+        <li class="sidebar-item">
+          <a class="sidebar-link" [routerLink]="['/artwork']" aria-expanded="false">
+                  <span>
+                    <i class="ti ti-brand-zoom"></i>
+                  </span>
+            <span class="hide-menu">Artworks</span>
+          </a>
+        </li>
+      </ul>
+      <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
+        <div class="d-flex">
+            <!-- You can also use the copyright symbol (©) if you prefer -->
+            <span>© </span>
+            <span>2025. All rights reserved.</span>
+        </div>
+      </div>
+    </nav>
+    <!-- End Sidebar navigation -->
+  </div>
+  <!-- End Sidebar scroll-->
+</aside>

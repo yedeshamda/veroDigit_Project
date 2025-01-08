@@ -1,0 +1,116 @@
+<style>.icon-search {
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-right: 40px;
+  padding-left: 22px;
+}
+</style>
+<div class="container-fluid">
+  <!-- --------------------------------------------------- -->
+  <!--  Form Basic Start -->
+  <!-- --------------------------------------------------- -->
+  <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+    <div class="card-body px-4 py-3">
+      <div class="row align-items-center">
+        <div class="col-12">
+          <h4 class="fw-semibold mb-8">Artworks</h4>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a class="text-muted " href="">veroDigit</a>
+              </li>
+            </ol>
+          </nav>
+        </div>
+<!--        -->
+      </div>
+    </div>
+  </div>
+  <div class="card w-100 position-relative overflow-hidden">
+    <div class="doctor-search-blk"></div>
+
+    <div class="px-4 py-3 border-bottom align-items-center" style="display: flex; justify-content: space-between">
+      <h5 class="card-title fw-semibold mb-0 lh-sm">Artworks</h5>
+      <div class="top-nav-search table-search-blk">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control icon-search"
+            [(ngModel)]="searchTerm"
+            (input)="onSearchChange()"
+            placeholder="Search artworks..."
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body p-4">
+      <div class="table-responsive rounded-2 mb-4">
+        <div class="artwork-grid">
+          <div
+            class="artwork-card"
+            *ngFor="let artwork of artworks"
+            (click)="openArtworkModal(artwork)"
+            [class.hover]="hover"
+            (mouseover)="hover = true"
+            (mouseleave)="hover = false">
+
+            <img [src]="artwork.image_id" alt="{{ artwork.title }}" class="artwork-image" />
+            <h3>{{ artwork.title }}</h3>
+            <p *ngIf="artwork.artist_title"><strong>Artist:</strong> {{ artwork.artist_title }}</p>
+            <p><strong>Department:</strong> {{ artwork.department_title }}</p>
+            <div *ngIf="artwork.place_of_origin" class="flag-container" style="display:flex; gap:8px">
+              <p><strong>Origin:</strong> {{ artwork.place_of_origin }}</p>
+              <span *ngIf="artwork.place_of_origin" class="flag-icon" [ngClass]="'flag-icon-' + getCountryCode(artwork.place_of_origin)"></span>
+              <span *ngIf="!artwork.place_of_origin" class="flag-icon flag-icon-gray"></span>
+            </div>
+            <p><strong>Start Date:</strong> {{ artwork.date_start }} <i class="fas fa-calendar-alt"></i></p> <!-- Calendar Icon -->
+            <div class="custom-badge status-purple" *ngFor="let techn of artwork?.technique_titles;">
+              {{ techn }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Artwork Modal Popup -->
+        <div class="modal" *ngIf="selectedArtwork" (click)="closeModal()">
+          <div class="modal-content" (click)="$event.stopPropagation()">
+            <img [src]="selectedArtwork.image_id" alt="{{ selectedArtwork.title }}" class="artwork-image" />
+            <div style="display: flex; justify-content: space-between;">
+              <div style="display: flex; gap: 8px">
+                <p style="border-radius: 16px; background: whitesmoke;font-size: 10px; padding: 4px;"><strong>Id:</strong> {{ selectedArtwork.main_reference_number }}</p>
+                <p style="border-radius: 16px; background: whitesmoke;font-size: 10px; padding: 4px;"><strong>Department:</strong> {{ selectedArtwork.department_title }}</p>
+              </div>
+              <p style="right: 24px; background: whitesmoke; border-radius: 16px; font-size: 10px; padding: 4px;">  <i class="fas fa-calendar-alt"></i> {{ selectedArtwork.date_start }}</p> <!-- Calendar Icon -->
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+            <h2>{{ selectedArtwork.title }}</h2>
+            <div *ngIf="selectedArtwork.place_of_origin" class="flag-container" style="display:flex; gap:8px">
+              <span *ngIf="selectedArtwork.place_of_origin" class="flag-icon" [ngClass]="'flag-icon-' + getCountryCode(selectedArtwork.place_of_origin)"></span>
+              <span *ngIf="!selectedArtwork.place_of_origin" class="flag-icon flag-icon-gray"></span>
+            </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;margin: 6px;">
+              <p style="margin: 0px"><strong>Artist:</strong> {{ selectedArtwork.artist_display }}</p>
+              <p style="margin: 0px"><strong>Medium:</strong> {{ selectedArtwork.medium_display }}</p>
+              <p style="margin: 0px" *ngIf="selectedArtwork?.term_titles?.length"><strong>Terms:</strong>
+                <span class="custom-badge status-green" *ngFor="let technique of selectedArtwork.term_titles | slice:0:12; let last = last">
+    {{ technique }}<span *ngIf="!last">, </span>
+                </span>
+              </p>
+            </div>
+            <button class="close-btn" (click)="closeModal()">X</button>
+          </div>
+        </div>
+        <div style="display: flex;justify-content: end; align-items: center;">
+        <button class="pagination-btn prev-btn" (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <span class="page-info">Page {{ currentPage }}</span>
+        <button class="pagination-btn next-btn" (click)="onPageChange(currentPage + 1)">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

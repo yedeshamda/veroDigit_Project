@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        dockerTool 'docker'
+        maven 'maven'
+    }
+
+    stages {
+        stage('Clone') {
+            steps {
+                git branch: 'Hamda', url: 'https://github.com/yedeshamda/veroDigit_Project.git'
+            }
+        }
+        stage('Build Database') {
+            steps {
+                sh 'docker container run --name mysqldb --network veroDigitnetwork -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=veroDigit -v /mysql:/var/lib/mysql -d mysql:8'
+                sh 'sleep 30'
+            }
+        }
+        stage('Maven Install') {
+            steps {
+                sh 'mvn install -DskipTests'
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t veroDigit .'
+            }
+        }
+        stage('Docker Run') {
+            steps {
+                sh 'docker container run --network veroDigitnetwork --name veroDigitcontainer -p 9092:9090 -d veroDigit'
+            }
+        }
+    }
+}

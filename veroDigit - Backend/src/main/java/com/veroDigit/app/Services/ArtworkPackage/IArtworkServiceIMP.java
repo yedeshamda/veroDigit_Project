@@ -1,9 +1,12 @@
 package com.veroDigit.app.Services.ArtworkPackage;
 
 import com.veroDigit.app.DTO.ArtworkSummary;
+import com.veroDigit.app.Repositories.ArtworkRepository;
 import com.veroDigit.app.entity.Artwork;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.util.UriUtils;
@@ -16,6 +19,9 @@ import java.util.stream.Collectors;
 public class IArtworkServiceIMP implements IArtworkService {
 
     private final RestTemplate restTemplate;
+
+    @Autowired
+    private ArtworkRepository artworkRepository;
 
     @Value("${artic.api.url}")  // You can define the base URL in your application.properties
     private String apiBaseUrl;
@@ -53,6 +59,15 @@ public class IArtworkServiceIMP implements IArtworkService {
         return List.of();  // Return an empty list in case of error
     }
 
+    /**
+     * This method should return all saved Artworks, any artwork which was searched by ID should have been saved.
+     * @return
+     */
+    @Override
+    public List<Artwork> getSavedArtworks() {
+        return artworkRepository.findAll();
+    }
+
     // Step 2: Get full artwork details by id
     @Override
     public Artwork getArtworkById(Long id, int page, int limit) {
@@ -77,7 +92,7 @@ public class IArtworkServiceIMP implements IArtworkService {
             String imageUrl = imageId != null ?
                     "https://www.artic.edu/iiif/2/" + imageId + "/full/843,/0/default.jpg" : null;
 
-            return new Artwork(
+            Artwork artwork = new Artwork(
                     data.getId(),
                     data.getTitle(),
                     data.getMainReferenceNumber(),
@@ -90,7 +105,10 @@ public class IArtworkServiceIMP implements IArtworkService {
                     data.getTermTitles(),
                     data.getDateStart(),
                     imageUrl // Construct the image URL if necessary
-            );
+
+                    );
+            artworkRepository.save(artwork);
+            return artwork;
         }
         return null;  // Return null if no data found
     }

@@ -16,6 +16,7 @@ public class veroDigitApplication {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
+
     public static void main(String[] args) {
         SpringApplication.run(veroDigitApplication.class, args);
     }

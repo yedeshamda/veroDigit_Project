@@ -14,4 +14,6 @@ public interface IArtworkService {
     Artwork getArtworkById(Long id, int page, int limit);
 
     List<Artwork> Artworks(int page, int limit);
+
+    List<Artwork> getSavedArtworks();
 }

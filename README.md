@@ -1,6 +1,6 @@
-# VeroDigit Project
+# ArtiFact Project
 
-Welcome to the VeroDigit Project repository. This project provides a robust implementation of a picture search system that integrates a Spring Boot backend and an Angular frontend. The solution fetches data from the Art Institute of Chicago's API to search for artwork based on user queries.
+Welcome to the ArtiFact Project repository. This project provides a robust implementation of a picture search system that integrates a Spring Boot backend and an Angular frontend. The solution fetches data from the Art Institute of Chicago's API to search for artwork based on user queries.
 
 ## Table of Contents
 
@@ -17,11 +17,11 @@ Welcome to the VeroDigit Project repository. This project provides a robust impl
 
 ## Project Overview
 
-The VeroDigit Project is a web application that allows users to search for artwork using the Art Institute of Chicago's API. It showcases a full-stack solution with:
+The ArtiFact Project is a web application that allows users to search for artwork using the Art Institute of Chicago's API. It showcases a full-stack solution with:
 
 - A Spring Boot backend handling API requests and processing data.
 - An Angular frontend for a user-friendly interface.
-- CI/CD Documentation for VeroDigit Project.
+- CI/CD Documentation for ArtiFact Project.
 
 ## Features
 
@@ -42,7 +42,7 @@ The VeroDigit Project is a web application that allows users to search for artwo
 
 ## Project Structure
 
-verodigit-project/
+ArtiFact-project/
 ├── backend/                # Spring Boot application
 ├── frontend/               # Angular application
 ├── docker-compose.yml      # Docker Compose configuration
@@ -78,7 +78,7 @@ verodigit-project/
 
 ## CI/CD Documentation
 
-In this section, the process for setting up CI/CD for the VeroDigit Project is outlined. Note that **CI/CD has not been implemented**, but the following provides guidance for its setup:
+In this section, the process for setting up CI/CD for the ArtiFact Project is outlined. Note that **CI/CD has not been implemented**, but the following provides guidance for its setup:
 
 ### CI Pipeline Overview
 
@@ -107,7 +107,7 @@ The application uses Docker for containerization:
 
 ### Docker Commands
 
-- Build the Docker image: `docker build -t verodigit .`
+- Build the Docker image: `docker build -t ArtiFact .`
 - Start the containers: `docker-compose up`
 
 ## Contributing
